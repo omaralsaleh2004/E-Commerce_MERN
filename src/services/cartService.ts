@@ -77,7 +77,7 @@ export const updateItemInCart = async ({
 }: UpdateItemInCart) => {
   const userCart = await getActiveCart({ userId });
 
-  const exitstInCart = await userCart.items.find(
+  const exitstInCart = userCart.items.find(
     (p) => p.product.toString() === productId
   );
 
@@ -94,12 +94,14 @@ export const updateItemInCart = async ({
   if (product.stock < quantity) {
     return { data: " Low stock for item", statusCode: 400 };
   }
-  const otherCartItems = userCart.items.filter((p) => p.product !== productId);
+  const otherCartItems = userCart.items.filter((p) => p.product.toString() !== productId);
 
   let total = otherCartItems.reduce((sum, p) => {
     sum += p.quantity * p.unitPrice;
     return sum;
   }, 0);
+
+  console.log(total);
 
   exitstInCart.quantity = quantity;
   total += exitstInCart.quantity * exitstInCart.unitPrice;
