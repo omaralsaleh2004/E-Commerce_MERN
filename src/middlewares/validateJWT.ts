@@ -1,12 +1,13 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel";
+import { ExtendRequest } from "../types/extendedRequest";
 
-interface ExtendRequest extends Request {
-  user?: any;
-}
-
- export const validateJWT = (req: ExtendRequest, res: Response, next: NextFunction) => {
+export const validateJWT = (
+  req: ExtendRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const authorizationheader = req.get("authorization");
   if (!authorizationheader) {
     res.status(403).send("no Authorization header was not provided");
@@ -46,5 +47,3 @@ interface ExtendRequest extends Request {
     }
   );
 };
-
-
