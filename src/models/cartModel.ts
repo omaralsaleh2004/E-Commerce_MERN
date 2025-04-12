@@ -3,7 +3,7 @@ import { IProduct } from "./productModel";
 
 const statusEnum = ["active", "completed"];
 
-interface ICartItems {
+export interface ICartItems {
   product: IProduct;
   quantity: number;
   unitPrice: number;
