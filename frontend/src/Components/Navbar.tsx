@@ -28,7 +28,7 @@ function Navbar() {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container sx={{minWidth : "100%"}}>
         <Toolbar disableGutters>
           <Box
             sx={{
