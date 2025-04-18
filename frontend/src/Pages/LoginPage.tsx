@@ -3,36 +3,28 @@ import { useRef, useState } from "react";
 import { BASE_URL } from "../Constants/BaseUrt";
 import { useAuth } from "../Context/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
-
-const RegisterPage = () => {
+const LoginPage = () => {
   const [error, setError] = useState("");
-  const firstnameRef = useRef<HTMLInputElement>(null);
-  const lastnameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
-  const {login} = useAuth();
+  const { login } = useAuth();
   const onSubmit = async () => {
-    const firstName = firstnameRef.current?.value;
-    const lastName = lastnameRef.current?.value;
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
-
-    if(!firstName || !lastName || !email || !password) {
+    if (!email || !password) {
       setError("Check submitted data !");
       return;
     }
 
-    const response = await fetch(`${BASE_URL}/user/register`, {
+    const response = await fetch(`${BASE_URL}/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstName,
-        lastName,
         email,
         password,
       }),
@@ -47,7 +39,7 @@ const RegisterPage = () => {
       setError("Incorrect token !");
       return;
     }
-    login(email , token);
+    login(email, token);
     navigate("/");
     console.log(token);
     setError("");
@@ -63,7 +55,7 @@ const RegisterPage = () => {
           mt: 6,
         }}
       >
-        <Typography variant="h5">Register New Account</Typography>
+        <Typography variant="h5">Login to Your Account</Typography>
         <Box
           sx={{
             minWidth: "35%",
@@ -76,12 +68,6 @@ const RegisterPage = () => {
             borderColor: "#f5f5f5",
           }}
         >
-          <TextField
-            inputRef={firstnameRef}
-            label="FirstName"
-            name="firstName"
-          />
-          <TextField inputRef={lastnameRef} label="LastName" name="lastName" />
           <TextField inputRef={emailRef} label="Email" name="email" />
           <TextField inputRef={passwordRef} label="Password" name="password" />
           <Box
@@ -98,7 +84,7 @@ const RegisterPage = () => {
               variant="contained"
               style={{ width: "100%" }}
             >
-              Register
+              Login
             </Button>
             {error && (
               <Typography style={{ color: "red", marginTop: 7 }}>
@@ -112,4 +98,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
