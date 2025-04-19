@@ -4,6 +4,8 @@ import Navbar from "./Components/Navbar";
 import RegisterPage from "./Pages/RegisterPage";
 import AuthProvider from "./Context/Auth/AuthProvider";
 import LoginPage from "./Pages/LoginPage";
+import CartPage from "./Pages/CartPage";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   return (
@@ -14,6 +16,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/cart" element={<CartPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
