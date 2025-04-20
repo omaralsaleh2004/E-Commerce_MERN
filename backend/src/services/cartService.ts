@@ -13,10 +13,21 @@ const createCartForUser = async ({ userId }: createCartForUser) => {
 
 interface getActiveCart {
   userId: string;
+  populateProduct?: boolean;
 }
 
-export const getActiveCart = async ({ userId }: getActiveCart) => {
-  let userCart = await cartModel.findOne({ userId, status: "active" });
+export const getActiveCart = async ({
+  userId,
+  populateProduct,
+}: getActiveCart) => {
+  let userCart;
+  if (populateProduct) {
+    userCart = await cartModel
+      .findOne({ userId, status: "active" })
+      .populate("items.product");
+  } else {
+    userCart = await cartModel.findOne({ userId, status: "active" });
+  }
   if (!userCart) {
     userCart = await createCartForUser({ userId });
   }
@@ -73,8 +84,11 @@ export const addItemToCart = async ({
     quantity: quantity,
   });
   userCart.totalAmount += product.price * quantity;
-  const updatedCart = await userCart.save();
-  return { data: updatedCart, statusCode: 200 };
+  await userCart.save();
+  return {
+    data: await getActiveCart({ userId, populateProduct: true }),
+    statusCode: 200,
+  };
 };
 
 interface UpdateItemInCart {
@@ -118,8 +132,11 @@ export const updateItemInCart = async ({
   exitstInCart.quantity = quantity;
   total += exitstInCart.quantity * exitstInCart.unitPrice;
   userCart.totalAmount = total;
-  const updatedCart = await userCart.save();
-  return { data: updatedCart, statusCode: 200 };
+  await userCart.save();
+  return {
+    data: await getActiveCart({ userId, populateProduct: true }),
+    statusCode: 200,
+  };
 };
 
 interface DeleteItemInCart {
@@ -149,9 +166,12 @@ export const deleteItemInCart = async ({
 
   userCart.items = otherCartItems;
   userCart.totalAmount = total;
-  const updateCart = await userCart.save();
+  await userCart.save();
 
-  return { data: updateCart, statusCode: 200 };
+  return {
+    data: await getActiveCart({ userId, populateProduct: true }),
+    statusCode: 200,
+  };
 };
 
 const CalculateCartTotalItems = (cartItems: ICartItems[]) => {
@@ -200,5 +220,5 @@ export const checkout = async ({ userId, address }: checkout) => {
 
   await userCart.save();
 
-  return { data : order , statusCode : 200};
+  return { data: order, statusCode: 200 };
 };
