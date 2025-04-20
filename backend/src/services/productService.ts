@@ -28,6 +28,27 @@ export const seedInitialProducts = async () => {
         price: 550,
         stock: 8,
       },
+      {
+        title: "Dell laptop",
+        image:
+          "https://i.pcmag.com/imagery/roundups/04OtgLS2CSnpQsNfHODkh5S-43.fit_lim.size_1050x.jpg",
+        price: 600,
+        stock: 20,
+      },
+      {
+        title: "Dell laptop",
+        image:
+          "https://i.pcmag.com/imagery/roundups/04OtgLS2CSnpQsNfHODkh5S-43.fit_lim.size_1050x.jpg",
+        price: 700,
+        stock: 5,
+      },
+      {
+        title: "Dell laptop",
+        image:
+          "https://i.pcmag.com/imagery/roundups/04OtgLS2CSnpQsNfHODkh5S-43.fit_lim.size_1050x.jpg",
+        price: 800,
+        stock: 11,
+      },
     ];
 
     const existingProduct = await getAllProducts();
