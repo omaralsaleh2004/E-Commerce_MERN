@@ -26,7 +26,7 @@ const HomePage = () => {
   }
 
   return (
-    <Container sx={{ mt: 2, minWidth: "85%" }}>
+    <Container fixed sx={{ mt: 2, minWidth: "85%" }}>
       <Grid container spacing={6}>
         {products.map(({ title, image, _id, price }) => (
           <Grid size={{ md: 4 }}>
