@@ -39,9 +39,10 @@ const MyOrdersPage = () => {
           <Typography variant="h6" mt={1}>
             Items:
           </Typography>
-          {orderItems.map(({ productTitle }) => (
-            <Box>
+          {orderItems.map(({ productTitle , unitPrice , quantity}) => (
+            <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} gap={4}>
               <Typography>{productTitle}</Typography>
+              <Typography>${unitPrice} x {quantity}</Typography>
             </Box>
           ))}
         </Box>
