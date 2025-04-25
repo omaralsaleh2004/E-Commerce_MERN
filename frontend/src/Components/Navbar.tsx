@@ -43,6 +43,11 @@ function Navbar() {
     handleCloseUserMenu();
   };
 
+  const handleMyOrders = () => {
+    navigate("/my-orders");
+    handleCloseUserMenu();
+  };
+
   const handleCart = () => {
     navigate("/cart");
   };
@@ -61,7 +66,11 @@ function Navbar() {
             }}
           >
             {" "}
-            <Button variant="text" sx={{color : "#fff"}} onClick={() => navigate("/")}>
+            <Button
+              variant="text"
+              sx={{ color: "#fff" }}
+              onClick={() => navigate("/")}
+            >
               <Box
                 sx={{
                   display: "flex",
@@ -136,7 +145,7 @@ function Navbar() {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem onClick={handleMyOrders}>
                       <Typography sx={{ textAlign: "center" }}>
                         My Orders
                       </Typography>
