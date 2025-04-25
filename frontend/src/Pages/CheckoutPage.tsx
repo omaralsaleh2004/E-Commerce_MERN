@@ -6,7 +6,7 @@ import { useAuth } from "../Context/Auth/AuthContext";
 import { BASE_URL } from "../Constants/BaseUrt";
 
 const CheckoutPage = () => {
-  const { cartItems, totalAmount } = useCart();
+  const { cartItems, totalAmount, clearCart } = useCart();
   const { token } = useAuth();
   const addressRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const CheckoutPage = () => {
     if (!response.ok) {
       return;
     }
+    clearCart();
     navigate("/order-success");
   };
   return (

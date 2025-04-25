@@ -21,9 +21,10 @@ const MyOrdersPage = () => {
         justifyContent: "center",
         alignItems: "center",
         gap: 3,
+        mb: 4,
       }}
     >
-     <Typography variant="h4">My Orders</Typography>
+      <Typography variant="h4">My Orders</Typography>
       {myOrders.map(({ address, total, orderItems }) => (
         <Box
           sx={{
@@ -33,9 +34,11 @@ const MyOrdersPage = () => {
             borderColor: "gray",
           }}
         >
-          <Typography>Address:{address}</Typography>
-          <Typography>Total:{total}</Typography>
-          <Typography mt={1}>Items:</Typography>
+          <Typography variant="h6">Address:{address}</Typography>
+          <Typography variant="h6">Total:{total}</Typography>
+          <Typography variant="h6" mt={1}>
+            Items:
+          </Typography>
           {orderItems.map(({ productTitle }) => (
             <Box>
               <Typography>{productTitle}</Typography>
